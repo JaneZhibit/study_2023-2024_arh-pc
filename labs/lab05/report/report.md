@@ -1,12 +1,13 @@
 ---
 ## Front matter
-title: "Шаблон отчёта по лабораторной работе"
-subtitle: "Простейший вариант"
-author: "Дмитрий Сергеевич Кулябов"
+title: "Лабораторная работа №5"
+subtitle: "Дисциплина: Архитектура компьютера"
+author: "Жибицкая Евгения Дмитриевна"
 
 ## Generic otions
 lang: ru-RU
 toc-title: "Содержание"
+
 
 ## Bibliography
 bibliography: bib/cite.bib
@@ -21,6 +22,7 @@ fontsize: 12pt
 linestretch: 1.5
 papersize: a4
 documentclass: scrreprt
+
 ## I18n polyglossia
 polyglossia-lang:
   name: russian
@@ -29,9 +31,11 @@ polyglossia-lang:
 	- babelshorthands=true
 polyglossia-otherlangs:
   name: english
+  
 ## I18n babel
 babel-lang: russian
 babel-otherlangs: english
+
 ## Fonts
 mainfont: PT Serif
 romanfont: PT Serif
@@ -41,6 +45,7 @@ mainfontoptions: Ligatures=TeX
 romanfontoptions: Ligatures=TeX
 sansfontoptions: Ligatures=TeX,Scale=MatchLowercase
 monofontoptions: Scale=MatchLowercase,Scale=0.9
+
 ## Biblatex
 biblatex: true
 biblio-style: "gost-numeric"
@@ -51,6 +56,7 @@ biblatexoptions:
   - language=auto
   - autolang=other*
   - citestyle=gost-numeric
+  
 ## Pandoc-crossref LaTeX customization
 figureTitle: "Рис."
 tableTitle: "Таблица"
@@ -58,60 +64,140 @@ listingTitle: "Листинг"
 lofTitle: "Список иллюстраций"
 lotTitle: "Список таблиц"
 lolTitle: "Листинги"
+
 ## Misc options
 indent: true
 header-includes:
   - \usepackage{indentfirst}
   - \usepackage{float} # keep figures where there are in the text
   - \floatplacement{figure}{H} # keep figures where there are in the text
+  
+## pandoc-tablenos
+
+pandoc-tablenos:
+- \usepackage{caption}
+
+pandoc-tablenos:
+- \makeatletter
+- \newcounter{tableno}
+- \newenvironment{tablenos:no-prefix-table-caption}{
+	- \caption@ifcompatibility{}{
+		- \let\oldthetable\thetable
+		- \let\oldtheHtable\theHtable
+		- \renewcommand{\thetable}{tableno:\thetableno}
+		- \renewcommand{\theHtable}{tableno:\thetableno}
+		- \stepcounter{tableno}
+		- \captionsetup{labelformat=empty}
+	}
+	}{
+- \caption@ifcompatibility{}{
+		- \captionsetup{labelformat=default}
+		- \let\thetable\oldthetable
+		- \let\theHtable\oldtheHtable		
+		- \addtocounter{table}{-1}
+	}
+	}
+- \makeatother
+
+  
 ---
+
 
 # Цель работы
 
-Здесь приводится формулировка цели лабораторной работы. Формулировки
-цели для каждой лабораторной работы приведены в методических
-указаниях.
+Изучение Midnight Commander, приобретение навыков по работе с ним, а также освоение инструкций языка ассемблера.
 
-Цель данного шаблона --- максимально упростить подготовку отчётов по
-лабораторным работам.  Модифицируя данный шаблон, студенты смогут без
-труда подготовить отчёт по лабораторным работам, а также познакомиться
-с основными возможностями разметки Markdown.
 
-# Задание
-
-Здесь приводится описание задания в соответствии с рекомендациями
-методического пособия и выданным вариантом.
-
-# Теоретическое введение
-
-Здесь описываются теоретические аспекты, связанные с выполнением работы.
-
-Например, в табл. @tbl:std-dir приведено краткое описание стандартных каталогов Unix.
-
-: Описание некоторых каталогов файловой системы GNU Linux {#tbl:std-dir}
-
-| Имя каталога | Описание каталога                                                                                                          |
-|--------------|----------------------------------------------------------------------------------------------------------------------------|
-| `/`          | Корневая директория, содержащая всю файловую                                                                               |
-| `/bin `      | Основные системные утилиты, необходимые как в однопользовательском режиме, так и при обычной работе всем пользователям     |
-| `/etc`       | Общесистемные конфигурационные файлы и файлы конфигурации установленных программ                                           |
-| `/home`      | Содержит домашние директории пользователей, которые, в свою очередь, содержат персональные настройки и данные пользователя |
-| `/media`     | Точки монтирования для сменных носителей                                                                                   |
-| `/root`      | Домашняя директория пользователя  `root`                                                                                   |
-| `/tmp`       | Временные файлы                                                                                                            |
-| `/usr`       | Вторичная иерархия для данных пользователя                                                                                 |
-
-Более подробно об Unix см. в [@gnu-doc:bash;@newham:2005:bash;@zarrelli:2017:bash;@robbins:2013:bash;@tannenbaum:arch-pc:ru;@tannenbaum:modern-os:ru].
 
 # Выполнение лабораторной работы
 
-Описываются проведённые действия, в качестве иллюстрации даётся ссылка на иллюстрацию (рис. @fig:001).
+Для начала  откроем Midnight Commander и создадим нужный каталог (рис. @fig:001).
 
-![Название рисунка](image/placeimg_800_600_tech.jpg){#fig:001 width=70%}
+![Создание каталога](image/1.png){#fig:001 width=70%}
+
+
+
+Затем создадим командой touch файл lab5-1.asm(рис. @fig:002),(рис. @fig:003).
+
+![Создание файла](image/2.png){#fig:002 width=70%}
+
+
+
+![Проверка на наличие файла](image/3.png){#fig:003 width=70%}
+
+
+
+Откроем этот файл, введем текст программы и убедимся, что все сохранилось(рис. @fig:004),(рис. @fig:005).
+
+![Ввод программы](image/4.png){#fig:004 width=70%}
+
+
+
+![Проверка сохранения программы](image/5.png){#fig:005 width=70%}
+
+
+
+Оттранслируеем текст в объектный файл, скомпонуем его и запустим(рис. @fig:006). 
+
+![Запуск программы](image/6.png){#fig:006 width=70%}
+
+
+
+Затем скачаем файл из ТУИС,с помощью клавиши f5 скопируем его в нужный каталог (рис. @fig:007), клавишей f6 создадим файл lab5-2.asm (рис. @fig:008).
+
+![Копирование файла in_out.asm](image/7.png){#fig:007 width=70%}
+
+
+
+![Создание lab5-2.asm](image/8.png){#fig:008 width=70%} 
+
+
+
+Также введем текст программы, создадим исполняемый файл и запустим его. Кроме того запустим также замененный sprintLF на sprint(отличается переносом строки)(рис. @fig:009),(рис. @fig:010),(рис. @fig:011),(рис. @fig:012). 
+
+![Ввод программы](image/9.png){#fig:009 width=70%}
+
+
+
+![Проверка на сохранение программы](image/10.png){#fig:010 width=70%}
+
+
+
+![Запуск с sprintLF ](image/11.png){#fig:011 width=70%}
+
+
+
+![Запуск с sprint](image/12.png){#fig:012 width=70%}
+
+
+
+
+# Задание для самостоятельной работы
+
+Сначала скопируем файл с кодом, назовем его ..., затем изменим его(рис. @fig:013), создадим исполняемый файл и убедимся, что введеная строка печатается(рис. @fig:014).
+
+![Изменение кода ](image/13.png){#fig:013 width=70%}
+
+
+
+![Запуск программы](image/14.png){#fig:014 width=70%}
+ 
+ 
+ 
+Также проделаем те же действия, но для программы с использованием in_out.asm(рис. @fig:015),(рис. @fig:016).
+
+![Изменение кода ](image/15.png){#fig:015 width=70%}
+
+
+
+![Запуск программы](image/16.png){#fig:016 width=70%}
+
+
+
 
 # Выводы
 
-Здесь кратко описываются итоги проделанной работы.
+В ходе работы были приобретены навыки по работе с Midnight Commander, изучены инструкции mov и int.
 
 # Список литературы{.unnumbered}
 

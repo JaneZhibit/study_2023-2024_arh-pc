@@ -65,6 +65,34 @@ header-includes:
   - \usepackage{indentfirst}
   - \usepackage{float} # keep figures where there are in the text
   - \floatplacement{figure}{H} # keep figures where there are in the text
+  
+## pandoc-tablenos
+
+pandoc-tablenos:
+- \usepackage{caption}
+
+pandoc-tablenos:
+- \makeatletter
+- \newcounter{tableno}
+- \newenvironment{tablenos:no-prefix-table-caption}{
+- \caption@ifcompatibility{}{
+- \let\oldthetable\thetable
+- \let\oldtheHtable\theHtable
+- \renewcommand{\thetable}{tableno:\thetableno}
+- \renewcommand{\theHtable}{tableno:\thetableno}
+- \stepcounter{tableno}
+- \captionsetup{labelformat=empty}
+}
+}{
+- \caption@ifcompatibility{}{
+- \captionsetup{labelformat=default}
+- \let\thetable\oldthetable
+- \let\theHtable\oldtheHtable
+- \addtocounter{table}{-1}
+}
+}
+- \makeatother
+
 ---
 
 # Цель работы
